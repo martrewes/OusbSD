@@ -1,20 +1,12 @@
 ﻿Imports System.IO
 Imports Velleman.Kits.K8101
 
-Public Class frmMain
+Public Class FrmMain
 
     Dim Display As Object
 
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
-
-    Private Delegate Sub startDelegate()
-
-    Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
-    Private Sub Form1_Load() Handles Me.Load
-
         Display = New Velleman.Kits.K8101
         Start()
     End Sub
@@ -23,24 +15,38 @@ Public Class frmMain
         '21 chars(l), 32 chars(s), 6 lines(l), 8 lines(s)
 
 
-        Dim lineStartY As Integer
+        Dim lineStartY As Integer = 4
 
         Dim lines() As String
         Dim textFile As New StreamReader("D:\Desktop\fooNow.txt")
         Dim lineNumber As Integer = 0
+        Dim charCount As Integer
         lines = textFile.ReadToEnd.Split(Environment.NewLine)
         Display.ClearAll()
+        Display.DrawImage("D:\Documents\Visual Studio 2019\Projects\OusbSD\Background.bmp")
         For Each line As String In lines
-
+            charCount = line.Length
             'Do what you want with the line
             If lineNumber = 0 Then
                 Debug.WriteLine(line)
-                Display.DrawText(line, K8101.TextSize.Small, 0, lineStartY, 128)
+
+                If charCount <= 24 Then
+                    lineStartY += 4
+                    Display.DrawText(line, K8101.TextSize.Small, 26, lineStartY, 128)
+                    lineStartY -= 4
+                Else Display.DrawText(line, K8101.TextSize.Small, 26, lineStartY, 128)
+                End If
+
             Else Debug.WriteLine(line.Remove(0, 1))
-                Display.DrawText(line.Remove(0, 1), K8101.TextSize.Small, 0, lineStartY, 128)
+                If charCount <= 24 Then
+                    lineStartY += 4
+                    Display.DrawText(line.Remove(0, 1), K8101.TextSize.Small, 26, lineStartY, 128)
+                    lineStartY -= 4
+                Else Display.DrawText(line.Remove(0, 1), K8101.TextSize.Small, 26, lineStartY, 128)
+                End If
             End If
 
-            lineStartY += 15
+            lineStartY += 20
             lineNumber += 1
 
         Next
