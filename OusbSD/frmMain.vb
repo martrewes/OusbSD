@@ -11,22 +11,19 @@ Public Class FrmMain
 
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        InitializeComponent()
+
+        ' InitializeComponent()
         displayScreen = New Velleman.Kits.K8101
         Start()
 
-
-
-        Dim SongChange As New FileSystemWatcher("D:\Desktop\")
+        Dim SongChange As New FileSystemWatcher("D:\Desktop\fooNow.txt")
         SongChange.Filter = "fooNow.txt"
         SongChange.EnableRaisingEvents = True
-
-        AddHandler SongChange.Changed, AddressOf SongChange_Changed
-    End Sub
-
-    Private Sub BtnSend_Click(sender As Object, e As EventArgs) Handles btnSend.Click
         SendText()
+        AddHandler SongChange.Changed, AddressOf SongChange_Changed
+        Me.WindowState = FormWindowState.Minimized
     End Sub
+
 
     Private Sub Start()
         Connect()
@@ -91,7 +88,7 @@ Public Class FrmMain
 
     End Sub
 
-    Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+    Private Sub BtnClear_Click(sender As Object, e As EventArgs)
         displayScreen.ClearAll()
     End Sub
 
@@ -104,5 +101,37 @@ Public Class FrmMain
 
         SendText()
 
+    End Sub
+
+    Private Sub FrmMain_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
+        If Me.WindowState = FormWindowState.Minimized Then
+            sysTrayIcon.Visible = True
+            sysTrayIcon.Icon = SystemIcons.Application
+            sysTrayIcon.BalloonTipIcon = ToolTipIcon.Info
+            sysTrayIcon.BalloonTipTitle = "OusbSD is running from the System Tray"
+            sysTrayIcon.BalloonTipText = "Please right-click the icon for configuration"
+            sysTrayIcon.ShowBalloonTip(3000)
+            'Me.Hide()
+            ShowInTaskbar = False
+        End If
+    End Sub
+
+    Private Sub SysTrayIcon_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles sysTrayIcon.DoubleClick
+        'Me.Show()
+        ShowInTaskbar = True
+        Me.WindowState = FormWindowState.Normal
+        sysTrayIcon.Visible = False
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        MsgBox("WHY NO WORK!!")
+    End Sub
+
+    Public Sub TextFileLocation(sender As Object, e As EventArgs) Handles tsmFileLocation.Click
+        If (ofDialog.ShowDialog() = DialogResult.OK) Then
+            fileName = ofDialog.FileName
+
+
+        End If
     End Sub
 End Class
