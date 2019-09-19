@@ -1,22 +1,31 @@
 ﻿Imports System.IO
 Imports Velleman.Kits.K8101
+Imports System.Runtime.InteropServices
+
 
 Public Class FrmMain
-
+    'Declare global variables
     Dim displayScreen As Object
     Dim lastUpdate As DateTime
     Dim fileName As String
     Dim filePath As String
 
+    ' This is used to allow the button on the display to pause the playing audio, regardless of player if it supports MediaKeys
+    ' https://www.dreamincode.net/forums/topic/339272-how-can-i-use-sendkeyssend-to-send-the-play-song-signal/
+    Private Const KEYEVENTF_KEYDOWN As UInteger = &H0
+    Private Const KEYEVENTF_KEYUP As UInteger = &H2
+    <DllImport("user32.dll", EntryPoint:="keybd_event")>
+    Public Shared Sub keybd_event(ByVal bVk As Byte, ByVal bScan As Byte, ByVal dwFlags As UInteger, ByVal dwExtraInfo As UInteger)
+    End Sub
+
 
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         ' InitializeComponent()
         displayScreen = New Velleman.Kits.K8101
         Start()
 
-        Dim SongChange As New FileSystemWatcher("D:\Desktop\fooNow.txt")
+        Dim SongChange As New FileSystemWatcher("D:\Desktop\")
         SongChange.Filter = "fooNow.txt"
         SongChange.EnableRaisingEvents = True
         SendText()
@@ -27,7 +36,6 @@ Public Class FrmMain
 
     Private Sub Start()
         Connect()
-
         displayScreen.Backlight(255)
         displayScreen.Contrast(20)
     End Sub
@@ -43,8 +51,6 @@ Public Class FrmMain
 
     Private Sub SendText()
         'Screen can hold [in text] 21 chars(l), 32 chars(s), 6 lines(l), 8 lines(s)
-
-
         Dim lineStartY As Integer = 4  'Sets the base location of the text
         Dim lineStartX As Integer = 26 'Made variable so can change location if background changes
         Dim lines() As String
@@ -53,7 +59,7 @@ Public Class FrmMain
         Dim charCount As Integer 'Will use to determine where that tag should go vertically
         lines = textFile.ReadToEnd.Split(Environment.NewLine) 'Read the file into lines
         displayScreen.ClearAll() 'Clear the screen
-        displayScreen.DrawImage("D:\Documents\Visual Studio 2019\Projects\OusbSD\Background.bmp") 'First, set the background. This will need to change into the program location folder (easy enough to change at release)
+        displayScreen.DrawImage("./Background.bmp") 'First, set the background. This will need to change into the program location folder (easy enough to change at release)
         For Each line As String In lines
             charCount = line.Length 'Count the characters of that line/uses in if statement
 
@@ -94,13 +100,9 @@ Public Class FrmMain
 
     Private Sub SongChange_Changed(ByVal sender As Object, ByVal e As FileSystemEventArgs)
         Threading.Thread.Sleep(500) 'Had to put a delay of .5 seconds so the file doesn't appear as in use
-
         If DateTime.Now.Subtract(lastUpdate).TotalMilliseconds < 1000 Then Return 'Catches from running twice, without it will push two updates in quick succession
-
         lastUpdate = DateTime.Now
-
         SendText()
-
     End Sub
 
     Private Sub FrmMain_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
@@ -124,14 +126,43 @@ Public Class FrmMain
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        MsgBox("WHY NO WORK!!")
+        '   keybd_event(CByte(Keys.MediaPlayPause), 0, KEYEVENTF_KEYDOWN, 0)
+        '   keybd_event(CByte(Keys.MediaPlayPause), 0, KEYEVENTF_KEYUP, 0)
+        '   MsgBox("Did it pause?")
+        displayScreen.Backlight(0)
     End Sub
 
-    Public Sub TextFileLocation(sender As Object, e As EventArgs) Handles tsmFileLocation.Click
-        If (ofDialog.ShowDialog() = DialogResult.OK) Then
-            fileName = ofDialog.FileName
+    Public Sub ShowSettings(sender As Object, e As EventArgs) Handles tsmSettings.Click
+        ShowInTaskbar = True
+        Me.WindowState = FormWindowState.Normal
+        sysTrayIcon.Visible = False
+    End Sub
 
+    Private Sub TrbContrast_Scroll(sender As Object, e As EventArgs) Handles trbContrast.Scroll
+        lblContrast.Text = trbContrast.Value
+    End Sub
 
-        End If
+    Private Sub FrmMain_Close(sender As Object, e As EventArgs) Handles Me.Closing
+        GoodbyeMessage()
+    End Sub
+    'Screen can hold [in text] 21 chars(l), 32 chars(s), 6 lines(l), 8 lines(s)
+
+    Private Sub GoodbyeMessage()
+        displayScreen.ClearAll()
+        displayScreen.DrawText("+-------------------+", K8101.TextSize.Large, 0, 0, 128)
+        displayScreen.DrawText("| BBB  Y   Y  EEE   |", K8101.TextSize.Large, 0, 8, 128)
+        displayScreen.DrawText("| B  B  Y Y   E  E  |", K8101.TextSize.Large, 0, 16, 128)
+        displayScreen.DrawText("| B B    Y    E E   |", K8101.TextSize.Large, 0, 24, 128)
+        displayScreen.DrawText("| BBBB   Y    EE    |", K8101.TextSize.Large, 0, 32, 128)
+        displayScreen.DrawText("| B  B   Y    E     |", K8101.TextSize.Large, 0, 40, 128)
+        displayScreen.DrawText("| BBB    Y    EEEE  |", K8101.TextSize.Large, 0, 48, 128)
+        displayScreen.DrawText("+-------------------+", K8101.TextSize.Large, 0, 56, 128)
+        Threading.Thread.Sleep(5000)
+        displayScreen.ClearAll()
+
+    End Sub
+
+    Private Sub TsmClose_Click(sender As Object, e As EventArgs) Handles tsmClose.Click
+        Me.Close()
     End Sub
 End Class

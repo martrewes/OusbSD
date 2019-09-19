@@ -26,9 +26,29 @@ Partial Class FrmMain
         Me.ofDialog = New System.Windows.Forms.OpenFileDialog()
         Me.sysTrayIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.sysMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.tsmFileLocation = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmSettings = New System.Windows.Forms.ToolStripMenuItem()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnFileBrowser = New System.Windows.Forms.Button()
+        Me.lblFileLocation = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnBGImage = New System.Windows.Forms.Button()
+        Me.lblBGImage = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.cbxAutoStart = New System.Windows.Forms.CheckBox()
+        Me.lblContrast = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.trbContrast = New System.Windows.Forms.TrackBar()
+        Me.cbxInverted = New System.Windows.Forms.CheckBox()
+        Me.cbxBacklight = New System.Windows.Forms.CheckBox()
+        Me.btnSave = New System.Windows.Forms.Button()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.tsmClose = New System.Windows.Forms.ToolStripMenuItem()
         Me.sysMenu.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.trbContrast, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ofDialog
@@ -47,34 +67,205 @@ Partial Class FrmMain
         'sysMenu
         '
         Me.sysMenu.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.sysMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmFileLocation})
+        Me.sysMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmSettings, Me.ToolStripSeparator1, Me.tsmClose})
         Me.sysMenu.Name = "sysMenu"
-        Me.sysMenu.Size = New System.Drawing.Size(241, 69)
+        Me.sysMenu.Size = New System.Drawing.Size(181, 76)
         '
-        'tsmFileLocation
+        'tsmSettings
         '
-        Me.tsmFileLocation.Name = "tsmFileLocation"
-        Me.tsmFileLocation.Size = New System.Drawing.Size(240, 32)
-        Me.tsmFileLocation.Text = "Text File Location..."
+        Me.tsmSettings.Name = "tsmSettings"
+        Me.tsmSettings.Size = New System.Drawing.Size(180, 22)
+        Me.tsmSettings.Text = "Settings..."
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(135, 13)
+        Me.Button1.Location = New System.Drawing.Point(12, 191)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 1
-        Me.Button1.Text = "Button1"
+        Me.Button1.Text = "Playground"
         Me.Button1.UseVisualStyleBackColor = True
+        '
+        'btnFileBrowser
+        '
+        Me.btnFileBrowser.Location = New System.Drawing.Point(263, 11)
+        Me.btnFileBrowser.Name = "btnFileBrowser"
+        Me.btnFileBrowser.Size = New System.Drawing.Size(75, 23)
+        Me.btnFileBrowser.TabIndex = 2
+        Me.btnFileBrowser.Text = "Browse..."
+        Me.btnFileBrowser.UseVisualStyleBackColor = True
+        '
+        'lblFileLocation
+        '
+        Me.lblFileLocation.AutoSize = True
+        Me.lblFileLocation.Location = New System.Drawing.Point(6, 16)
+        Me.lblFileLocation.Name = "lblFileLocation"
+        Me.lblFileLocation.Size = New System.Drawing.Size(16, 13)
+        Me.lblFileLocation.TabIndex = 3
+        Me.lblFileLocation.Text = "..."
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.lblFileLocation)
+        Me.GroupBox1.Controls.Add(Me.btnFileBrowser)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(344, 40)
+        Me.GroupBox1.TabIndex = 4
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "File Location"
+        '
+        'btnBGImage
+        '
+        Me.btnBGImage.Enabled = False
+        Me.btnBGImage.Location = New System.Drawing.Point(263, 18)
+        Me.btnBGImage.Name = "btnBGImage"
+        Me.btnBGImage.Size = New System.Drawing.Size(75, 23)
+        Me.btnBGImage.TabIndex = 5
+        Me.btnBGImage.Text = "Change..."
+        Me.btnBGImage.UseVisualStyleBackColor = True
+        '
+        'lblBGImage
+        '
+        Me.lblBGImage.AutoSize = True
+        Me.lblBGImage.Enabled = False
+        Me.lblBGImage.Location = New System.Drawing.Point(6, 23)
+        Me.lblBGImage.Name = "lblBGImage"
+        Me.lblBGImage.Size = New System.Drawing.Size(93, 13)
+        Me.lblBGImage.TabIndex = 6
+        Me.lblBGImage.Text = "\Background.bmp"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.btnBGImage)
+        Me.GroupBox2.Controls.Add(Me.lblBGImage)
+        Me.GroupBox2.Enabled = False
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 58)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(344, 47)
+        Me.GroupBox2.TabIndex = 7
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Background Image (Must be 128x64 Monochrome .bmp)"
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.cbxAutoStart)
+        Me.GroupBox3.Controls.Add(Me.lblContrast)
+        Me.GroupBox3.Controls.Add(Me.Label1)
+        Me.GroupBox3.Controls.Add(Me.trbContrast)
+        Me.GroupBox3.Controls.Add(Me.cbxInverted)
+        Me.GroupBox3.Controls.Add(Me.cbxBacklight)
+        Me.GroupBox3.Location = New System.Drawing.Point(12, 111)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(344, 75)
+        Me.GroupBox3.TabIndex = 8
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Additional Settings"
+        '
+        'cbxAutoStart
+        '
+        Me.cbxAutoStart.AutoSize = True
+        Me.cbxAutoStart.Enabled = False
+        Me.cbxAutoStart.Location = New System.Drawing.Point(80, 44)
+        Me.cbxAutoStart.Name = "cbxAutoStart"
+        Me.cbxAutoStart.Size = New System.Drawing.Size(136, 17)
+        Me.cbxAutoStart.TabIndex = 5
+        Me.cbxAutoStart.Text = "Auto Start /w Windows"
+        Me.cbxAutoStart.UseVisualStyleBackColor = True
+        '
+        'lblContrast
+        '
+        Me.lblContrast.AutoSize = True
+        Me.lblContrast.Location = New System.Drawing.Point(277, 45)
+        Me.lblContrast.Name = "lblContrast"
+        Me.lblContrast.Size = New System.Drawing.Size(19, 13)
+        Me.lblContrast.TabIndex = 4
+        Me.lblContrast.Text = "15"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(222, 45)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(49, 13)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "Contrast:"
+        '
+        'trbContrast
+        '
+        Me.trbContrast.Location = New System.Drawing.Point(213, 13)
+        Me.trbContrast.Maximum = 25
+        Me.trbContrast.Minimum = 5
+        Me.trbContrast.Name = "trbContrast"
+        Me.trbContrast.Size = New System.Drawing.Size(103, 45)
+        Me.trbContrast.TabIndex = 2
+        Me.trbContrast.TickStyle = System.Windows.Forms.TickStyle.TopLeft
+        Me.trbContrast.Value = 15
+        '
+        'cbxInverted
+        '
+        Me.cbxInverted.AutoSize = True
+        Me.cbxInverted.Location = New System.Drawing.Point(9, 44)
+        Me.cbxInverted.Name = "cbxInverted"
+        Me.cbxInverted.Size = New System.Drawing.Size(65, 17)
+        Me.cbxInverted.TabIndex = 1
+        Me.cbxInverted.Text = "Inverted"
+        Me.cbxInverted.UseVisualStyleBackColor = True
+        '
+        'cbxBacklight
+        '
+        Me.cbxBacklight.AutoSize = True
+        Me.cbxBacklight.Checked = True
+        Me.cbxBacklight.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.cbxBacklight.Location = New System.Drawing.Point(9, 20)
+        Me.cbxBacklight.Name = "cbxBacklight"
+        Me.cbxBacklight.Size = New System.Drawing.Size(106, 17)
+        Me.cbxBacklight.TabIndex = 0
+        Me.cbxBacklight.Text = "Backlight On/Off"
+        Me.cbxBacklight.UseVisualStyleBackColor = True
+        '
+        'btnSave
+        '
+        Me.btnSave.Location = New System.Drawing.Point(281, 191)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.TabIndex = 9
+        Me.btnSave.Text = "Save"
+        Me.btnSave.UseVisualStyleBackColor = True
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        '
+        'tsmClose
+        '
+        Me.tsmClose.Name = "tsmClose"
+        Me.tsmClose.Size = New System.Drawing.Size(180, 22)
+        Me.tsmClose.Text = "Exit"
         '
         'FrmMain
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(544, 97)
+        Me.ClientSize = New System.Drawing.Size(368, 225)
+        Me.Controls.Add(Me.btnSave)
+        Me.Controls.Add(Me.GroupBox3)
+        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button1)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FrmMain"
         Me.Text = "frmMain"
         Me.sysMenu.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        CType(Me.trbContrast, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -82,5 +273,21 @@ Partial Class FrmMain
     Friend WithEvents sysTrayIcon As NotifyIcon
     Friend WithEvents sysMenu As ContextMenuStrip
     Friend WithEvents Button1 As Button
-    Friend WithEvents tsmFileLocation As ToolStripMenuItem
+    Friend WithEvents tsmSettings As ToolStripMenuItem
+    Friend WithEvents btnFileBrowser As Button
+    Friend WithEvents lblFileLocation As Label
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents btnBGImage As Button
+    Friend WithEvents lblBGImage As Label
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents cbxInverted As CheckBox
+    Friend WithEvents cbxBacklight As CheckBox
+    Friend WithEvents lblContrast As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents trbContrast As TrackBar
+    Friend WithEvents cbxAutoStart As CheckBox
+    Friend WithEvents btnSave As Button
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents tsmClose As ToolStripMenuItem
 End Class

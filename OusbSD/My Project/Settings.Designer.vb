@@ -53,6 +53,66 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property setFileName() As String
+            Get
+                Return CType(Me("setFileName"),String)
+            End Get
+            Set
+                Me("setFileName") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property setFileFath() As String
+            Get
+                Return CType(Me("setFileFath"),String)
+            End Get
+            Set
+                Me("setFileFath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property setBGImg() As String
+            Get
+                Return CType(Me("setBGImg"),String)
+            End Get
+            Set
+                Me("setBGImg") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property setAutoStart() As Boolean
+            Get
+                Return CType(Me("setAutoStart"),Boolean)
+            End Get
+            Set
+                Me("setAutoStart") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property setContrast() As String
+            Get
+                Return CType(Me("setContrast"),String)
+            End Get
+            Set
+                Me("setContrast") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
