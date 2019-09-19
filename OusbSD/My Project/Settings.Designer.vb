@@ -104,13 +104,61 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property setContrast() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("15")>  _
+        Public Property setContrast() As Integer
             Get
-                Return CType(Me("setContrast"),String)
+                Return CType(Me("setContrast"),Integer)
             End Get
             Set
                 Me("setContrast") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property setInverted() As Boolean
+            Get
+                Return CType(Me("setInverted"),Boolean)
+            End Get
+            Set
+                Me("setInverted") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property setBacklight() As Boolean
+            Get
+                Return CType(Me("setBacklight"),Boolean)
+            End Get
+            Set
+                Me("setBacklight") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property setFileString() As String
+            Get
+                Return CType(Me("setFileString"),String)
+            End Get
+            Set
+                Me("setFileString") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property setFirstTime() As Boolean
+            Get
+                Return CType(Me("setFirstTime"),Boolean)
+            End Get
+            Set
+                Me("setFirstTime") = value
             End Set
         End Property
     End Class
