@@ -27,6 +27,10 @@ Public Class FrmMain
         For Each line As String In lines
             charCount = line.Length 'Count the characters of that line/uses in if statement
 
+            If charCount >= 48 Then             'Make the maximum characters 48, so they do not overlap eachother.
+                line = line.Substring(0, 48)
+            End If
+
             If lineNumber = 0 Then
                 Debug.WriteLine(line)
 
