@@ -69,18 +69,18 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property setFileFath() As String
+        Public Property setFilePath() As String
             Get
-                Return CType(Me("setFileFath"),String)
+                Return CType(Me("setFilePath"),String)
             End Get
             Set
-                Me("setFileFath") = value
+                Me("setFilePath") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("./Background.bmp")>  _
         Public Property setBGImg() As String
             Get
                 Return CType(Me("setBGImg"),String)
@@ -128,25 +128,13 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property setBacklight() As Boolean
+         Global.System.Configuration.DefaultSettingValueAttribute("255")>  _
+        Public Property setBacklight() As Integer
             Get
-                Return CType(Me("setBacklight"),Boolean)
+                Return CType(Me("setBacklight"),Integer)
             End Get
             Set
                 Me("setBacklight") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property setFileString() As String
-            Get
-                Return CType(Me("setFileString"),String)
-            End Get
-            Set
-                Me("setFileString") = value
             End Set
         End Property
         
@@ -159,6 +147,18 @@ Namespace My
             End Get
             Set
                 Me("setFirstTime") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property setFileNameFull() As String
+            Get
+                Return CType(Me("setFileNameFull"),String)
+            End Get
+            Set
+                Me("setFileNameFull") = value
             End Set
         End Property
     End Class

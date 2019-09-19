@@ -27,6 +27,8 @@ Partial Class FrmMain
         Me.sysTrayIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.sysMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.tsmSettings = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.tsmClose = New System.Windows.Forms.ToolStripMenuItem()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.btnFileBrowser = New System.Windows.Forms.Button()
         Me.lblFileLocation = New System.Windows.Forms.Label()
@@ -42,14 +44,12 @@ Partial Class FrmMain
         Me.cbxInverted = New System.Windows.Forms.CheckBox()
         Me.cbxBacklight = New System.Windows.Forms.CheckBox()
         Me.btnSave = New System.Windows.Forms.Button()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsmClose = New System.Windows.Forms.ToolStripMenuItem()
-        Me.sysMenu.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
+        Me.sysMenu.SuspendLayout
+        Me.GroupBox1.SuspendLayout
+        Me.GroupBox2.SuspendLayout
+        Me.GroupBox3.SuspendLayout
         CType(Me.trbContrast, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
+        Me.SuspendLayout
         '
         'ofDialog
         '
@@ -69,29 +69,40 @@ Partial Class FrmMain
         Me.sysMenu.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.sysMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmSettings, Me.ToolStripSeparator1, Me.tsmClose})
         Me.sysMenu.Name = "sysMenu"
-        Me.sysMenu.Size = New System.Drawing.Size(181, 76)
+        Me.sysMenu.Size = New System.Drawing.Size(161, 74)
         '
         'tsmSettings
         '
         Me.tsmSettings.Name = "tsmSettings"
-        Me.tsmSettings.Size = New System.Drawing.Size(180, 22)
+        Me.tsmSettings.Size = New System.Drawing.Size(160, 32)
         Me.tsmSettings.Text = "Settings..."
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(157, 6)
+        '
+        'tsmClose
+        '
+        Me.tsmClose.Name = "tsmClose"
+        Me.tsmClose.Size = New System.Drawing.Size(160, 32)
+        Me.tsmClose.Text = "Exit"
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(12, 191)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
+        Me.Button1.Location = New System.Drawing.Point(18, 294)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.Size = New System.Drawing.Size(112, 35)
         Me.Button1.TabIndex = 1
         Me.Button1.Text = "Playground"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'btnFileBrowser
         '
-        Me.btnFileBrowser.Location = New System.Drawing.Point(263, 11)
+        Me.btnFileBrowser.Location = New System.Drawing.Point(394, 17)
+        Me.btnFileBrowser.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.btnFileBrowser.Name = "btnFileBrowser"
-        Me.btnFileBrowser.Size = New System.Drawing.Size(75, 23)
+        Me.btnFileBrowser.Size = New System.Drawing.Size(112, 35)
         Me.btnFileBrowser.TabIndex = 2
         Me.btnFileBrowser.Text = "Browse..."
         Me.btnFileBrowser.UseVisualStyleBackColor = True
@@ -99,9 +110,10 @@ Partial Class FrmMain
         'lblFileLocation
         '
         Me.lblFileLocation.AutoSize = True
-        Me.lblFileLocation.Location = New System.Drawing.Point(6, 16)
+        Me.lblFileLocation.Location = New System.Drawing.Point(9, 25)
+        Me.lblFileLocation.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblFileLocation.Name = "lblFileLocation"
-        Me.lblFileLocation.Size = New System.Drawing.Size(16, 13)
+        Me.lblFileLocation.Size = New System.Drawing.Size(21, 20)
         Me.lblFileLocation.TabIndex = 3
         Me.lblFileLocation.Text = "..."
         '
@@ -109,9 +121,11 @@ Partial Class FrmMain
         '
         Me.GroupBox1.Controls.Add(Me.lblFileLocation)
         Me.GroupBox1.Controls.Add(Me.btnFileBrowser)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(18, 18)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(344, 40)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox1.Size = New System.Drawing.Size(516, 62)
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "File Location"
@@ -119,9 +133,10 @@ Partial Class FrmMain
         'btnBGImage
         '
         Me.btnBGImage.Enabled = False
-        Me.btnBGImage.Location = New System.Drawing.Point(263, 18)
+        Me.btnBGImage.Location = New System.Drawing.Point(394, 28)
+        Me.btnBGImage.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.btnBGImage.Name = "btnBGImage"
-        Me.btnBGImage.Size = New System.Drawing.Size(75, 23)
+        Me.btnBGImage.Size = New System.Drawing.Size(112, 35)
         Me.btnBGImage.TabIndex = 5
         Me.btnBGImage.Text = "Change..."
         Me.btnBGImage.UseVisualStyleBackColor = True
@@ -130,20 +145,23 @@ Partial Class FrmMain
         '
         Me.lblBGImage.AutoSize = True
         Me.lblBGImage.Enabled = False
-        Me.lblBGImage.Location = New System.Drawing.Point(6, 23)
+        Me.lblBGImage.Location = New System.Drawing.Point(9, 35)
+        Me.lblBGImage.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblBGImage.Name = "lblBGImage"
-        Me.lblBGImage.Size = New System.Drawing.Size(93, 13)
+        Me.lblBGImage.Size = New System.Drawing.Size(138, 20)
         Me.lblBGImage.TabIndex = 6
-        Me.lblBGImage.Text = "\Background.bmp"
+        Me.lblBGImage.Text = ".\Background.bmp"
         '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.btnBGImage)
         Me.GroupBox2.Controls.Add(Me.lblBGImage)
         Me.GroupBox2.Enabled = False
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 58)
+        Me.GroupBox2.Location = New System.Drawing.Point(18, 89)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(344, 47)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox2.Size = New System.Drawing.Size(516, 72)
         Me.GroupBox2.TabIndex = 7
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Background Image (Must be 128x64 Monochrome .bmp)"
@@ -156,9 +174,11 @@ Partial Class FrmMain
         Me.GroupBox3.Controls.Add(Me.trbContrast)
         Me.GroupBox3.Controls.Add(Me.cbxInverted)
         Me.GroupBox3.Controls.Add(Me.cbxBacklight)
-        Me.GroupBox3.Location = New System.Drawing.Point(12, 111)
+        Me.GroupBox3.Location = New System.Drawing.Point(18, 171)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(344, 75)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox3.Size = New System.Drawing.Size(516, 115)
         Me.GroupBox3.TabIndex = 8
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Additional Settings"
@@ -167,9 +187,10 @@ Partial Class FrmMain
         '
         Me.cbxAutoStart.AutoSize = True
         Me.cbxAutoStart.Enabled = False
-        Me.cbxAutoStart.Location = New System.Drawing.Point(80, 44)
+        Me.cbxAutoStart.Location = New System.Drawing.Point(120, 68)
+        Me.cbxAutoStart.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.cbxAutoStart.Name = "cbxAutoStart"
-        Me.cbxAutoStart.Size = New System.Drawing.Size(136, 17)
+        Me.cbxAutoStart.Size = New System.Drawing.Size(195, 24)
         Me.cbxAutoStart.TabIndex = 5
         Me.cbxAutoStart.Text = "Auto Start /w Windows"
         Me.cbxAutoStart.UseVisualStyleBackColor = True
@@ -177,28 +198,31 @@ Partial Class FrmMain
         'lblContrast
         '
         Me.lblContrast.AutoSize = True
-        Me.lblContrast.Location = New System.Drawing.Point(277, 45)
+        Me.lblContrast.Location = New System.Drawing.Point(416, 69)
+        Me.lblContrast.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblContrast.Name = "lblContrast"
-        Me.lblContrast.Size = New System.Drawing.Size(19, 13)
+        Me.lblContrast.Size = New System.Drawing.Size(27, 20)
         Me.lblContrast.TabIndex = 4
         Me.lblContrast.Text = "15"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(222, 45)
+        Me.Label1.Location = New System.Drawing.Point(333, 69)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(49, 13)
+        Me.Label1.Size = New System.Drawing.Size(74, 20)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Contrast:"
         '
         'trbContrast
         '
-        Me.trbContrast.Location = New System.Drawing.Point(213, 13)
+        Me.trbContrast.Location = New System.Drawing.Point(320, 20)
+        Me.trbContrast.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.trbContrast.Maximum = 25
         Me.trbContrast.Minimum = 5
         Me.trbContrast.Name = "trbContrast"
-        Me.trbContrast.Size = New System.Drawing.Size(103, 45)
+        Me.trbContrast.Size = New System.Drawing.Size(154, 69)
         Me.trbContrast.TabIndex = 2
         Me.trbContrast.TickStyle = System.Windows.Forms.TickStyle.TopLeft
         Me.trbContrast.Value = 15
@@ -206,9 +230,10 @@ Partial Class FrmMain
         'cbxInverted
         '
         Me.cbxInverted.AutoSize = True
-        Me.cbxInverted.Location = New System.Drawing.Point(9, 44)
+        Me.cbxInverted.Location = New System.Drawing.Point(14, 68)
+        Me.cbxInverted.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.cbxInverted.Name = "cbxInverted"
-        Me.cbxInverted.Size = New System.Drawing.Size(65, 17)
+        Me.cbxInverted.Size = New System.Drawing.Size(93, 24)
         Me.cbxInverted.TabIndex = 1
         Me.cbxInverted.Text = "Inverted"
         Me.cbxInverted.UseVisualStyleBackColor = True
@@ -218,53 +243,43 @@ Partial Class FrmMain
         Me.cbxBacklight.AutoSize = True
         Me.cbxBacklight.Checked = True
         Me.cbxBacklight.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.cbxBacklight.Location = New System.Drawing.Point(9, 20)
+        Me.cbxBacklight.Location = New System.Drawing.Point(14, 31)
+        Me.cbxBacklight.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.cbxBacklight.Name = "cbxBacklight"
-        Me.cbxBacklight.Size = New System.Drawing.Size(106, 17)
+        Me.cbxBacklight.Size = New System.Drawing.Size(151, 24)
         Me.cbxBacklight.TabIndex = 0
         Me.cbxBacklight.Text = "Backlight On/Off"
         Me.cbxBacklight.UseVisualStyleBackColor = True
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(281, 191)
+        Me.btnSave.Location = New System.Drawing.Point(422, 294)
+        Me.btnSave.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(75, 23)
+        Me.btnSave.Size = New System.Drawing.Size(112, 35)
         Me.btnSave.TabIndex = 9
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
-        '
-        'tsmClose
-        '
-        Me.tsmClose.Name = "tsmClose"
-        Me.tsmClose.Size = New System.Drawing.Size(180, 22)
-        Me.tsmClose.Text = "Exit"
-        '
         'FrmMain
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(368, 225)
+        Me.ClientSize = New System.Drawing.Size(983, 572)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button1)
-        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FrmMain"
         Me.Text = "frmMain"
         Me.sysMenu.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.GroupBox1.PerformLayout
         Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.GroupBox2.PerformLayout
         Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
+        Me.GroupBox3.PerformLayout
         CType(Me.trbContrast, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

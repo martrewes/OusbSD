@@ -7,8 +7,16 @@ Public Class FrmMain
     'Declare global variables
     Dim displayScreen As Object
     Dim lastUpdate As DateTime
+    Dim fileNameFull As String
     Dim fileName As String
     Dim filePath As String
+    Dim displayContrast As Integer
+    Dim displayBacklight As Integer
+    Dim displayInverted As Boolean
+    Dim shouldClose As Integer = 0
+
+
+
 
     ' This is used to allow the button on the display to pause the playing audio, regardless of player if it supports MediaKeys
     ' https://www.dreamincode.net/forums/topic/339272-how-can-i-use-sendkeyssend-to-send-the-play-song-signal/
@@ -21,16 +29,42 @@ Public Class FrmMain
 
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' InitializeComponent()
-        displayScreen = New Velleman.Kits.K8101
-        Start()
+        If My.Settings.setFirstTime = False Then
+            MsgBox("Please select your text file. For information on how to configure this application, please see http://www.github.com/martrewes/OusbSD", MessageBoxIcon.Exclamation, "First time run...")
+            If ofDialog.ShowDialog() = DialogResult.OK Then
+                fileNameFull = ofDialog.FileName
+                filePath = Path.GetDirectoryName(fileNameFull)
+                fileName = Path.GetFileName(fileNameFull)
+            Else shouldClose += 1
+            End If
 
-        Dim SongChange As New FileSystemWatcher("D:\Desktop\")
-        SongChange.Filter = "fooNow.txt"
-        SongChange.EnableRaisingEvents = True
-        SendText()
-        AddHandler SongChange.Changed, AddressOf SongChange_Changed
-        Me.WindowState = FormWindowState.Minimized
+            My.Settings.setFileNameFull = fileNameFull
+            My.Settings.setFileName = fileName
+            My.Settings.setFilePath = filePath
+
+        End If
+        If shouldClose = 1 Then
+            Me.Close()
+        Else
+            My.Settings.setFirstTime = False
+            displayScreen = New Velleman.Kits.K8101
+            fileNameFull = My.Settings.setFileNameFull
+            fileName = My.Settings.setFileName
+            filePath = My.Settings.setFilePath
+            displayContrast = My.Settings.setContrast
+            displayBacklight = My.Settings.setBacklight
+            displayInverted = My.Settings.setInverted
+
+            Start()
+
+            Dim SongChange As New FileSystemWatcher(filePath)
+            SongChange.Filter = fileName
+            SongChange.EnableRaisingEvents = True
+            AddHandler SongChange.Changed, AddressOf SongChange_Changed
+            SendText()
+            Me.WindowState = FormWindowState.Minimized
+        End If
+
     End Sub
 
 
@@ -148,17 +182,19 @@ Public Class FrmMain
     'Screen can hold [in text] 21 chars(l), 32 chars(s), 6 lines(l), 8 lines(s)
 
     Private Sub GoodbyeMessage()
-        displayScreen.ClearAll()
-        displayScreen.DrawText("+-------------------+", K8101.TextSize.Large, 0, 0, 128)
-        displayScreen.DrawText("| BBB  Y   Y  EEE   |", K8101.TextSize.Large, 0, 8, 128)
-        displayScreen.DrawText("| B  B  Y Y   E  E  |", K8101.TextSize.Large, 0, 16, 128)
-        displayScreen.DrawText("| B B    Y    E E   |", K8101.TextSize.Large, 0, 24, 128)
-        displayScreen.DrawText("| BBBB   Y    EE    |", K8101.TextSize.Large, 0, 32, 128)
-        displayScreen.DrawText("| B  B   Y    E     |", K8101.TextSize.Large, 0, 40, 128)
-        displayScreen.DrawText("| BBB    Y    EEEE  |", K8101.TextSize.Large, 0, 48, 128)
-        displayScreen.DrawText("+-------------------+", K8101.TextSize.Large, 0, 56, 128)
-        Threading.Thread.Sleep(5000)
-        displayScreen.ClearAll()
+        If displayContrast > 0 Then
+            displayScreen.ClearAll()
+            displayScreen.DrawText("+-------------------+", K8101.TextSize.Large, 0, 0, 128)
+            displayScreen.DrawText("| BBB  Y   Y  EEE   |", K8101.TextSize.Large, 0, 8, 128)
+            displayScreen.DrawText("| B  B  Y Y   E  E  |", K8101.TextSize.Large, 0, 16, 128)
+            displayScreen.DrawText("| B B    Y    E E   |", K8101.TextSize.Large, 0, 24, 128)
+            displayScreen.DrawText("| BBBB   Y    EE    |", K8101.TextSize.Large, 0, 32, 128)
+            displayScreen.DrawText("| B  B   Y    E     |", K8101.TextSize.Large, 0, 40, 128)
+            displayScreen.DrawText("| BBB    Y    EEEE  |", K8101.TextSize.Large, 0, 48, 128)
+            displayScreen.DrawText("+-------------------+", K8101.TextSize.Large, 0, 56, 128)
+            Threading.Thread.Sleep(5000)
+            displayScreen.ClearAll()
+        End If
 
     End Sub
 

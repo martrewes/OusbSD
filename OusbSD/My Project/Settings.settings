@@ -5,11 +5,11 @@
     <Setting Name="setFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="setFileFath" Type="System.String" Scope="User">
+    <Setting Name="setFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="setBGImg" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">./Background.bmp</Value>
     </Setting>
     <Setting Name="setAutoStart" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -20,14 +20,14 @@
     <Setting Name="setInverted" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="setBacklight" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="setFileString" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="setBacklight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">255</Value>
     </Setting>
     <Setting Name="setFirstTime" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="setFileNameFull" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
