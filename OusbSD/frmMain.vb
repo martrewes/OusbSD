@@ -9,9 +9,30 @@ Public Class FrmMain
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Display = New Velleman.Kits.K8101
         Start()
+
     End Sub
 
     Private Sub BtnSend_Click(sender As Object, e As EventArgs) Handles btnSend.Click
+        SendText()
+    End Sub
+
+    Private Sub Start()
+        Connect()
+
+        Display.Backlight(255)
+        Display.Contrast(15)
+    End Sub
+
+    Private Sub Connect()
+        Try
+            Display.Connect()
+        Catch ex As Exception
+            MsgBox("No device detected! Click OK to exit the application.", vbExclamation, "No Device")
+            Me.Close()
+        End Try
+    End Sub
+
+    Private Sub SendText()
         'Screen can hold [in text] 21 chars(l), 32 chars(s), 6 lines(l), 8 lines(s)
 
 
@@ -56,22 +77,6 @@ Public Class FrmMain
         Next
         textFile.Close()
 
-    End Sub
-
-    Private Sub Start()
-        Connect()
-
-        Display.Backlight(255)
-        Display.Contrast(15)
-    End Sub
-
-    Private Sub Connect()
-        Try
-            Display.Connect()
-        Catch ex As Exception
-            MsgBox("No device detected! Click OK to exit the application.", vbExclamation, "No Device")
-            Me.Close()
-        End Try
     End Sub
 
     Private Sub BtnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
