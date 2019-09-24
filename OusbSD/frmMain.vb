@@ -10,10 +10,12 @@ Public Class FrmMain
     Dim fileNameFull As String
     Dim fileName As String
     Dim filePath As String
+    Dim backgroungIMG As String
     Dim displayContrast As Integer
     Dim displayBacklight As Integer
     Dim displayInverted As Boolean
     Dim shouldClose As Integer = 0
+    Dim hasConnected As Boolean = False
 
 
 
@@ -29,31 +31,39 @@ Public Class FrmMain
 
 
     Private Sub FrmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If My.Settings.setFirstTime = False Then
+        If My.Settings.setFirstTime = True Then
             MsgBox("Please select your text file. For information on how to configure this application, please see http://www.github.com/martrewes/OusbSD", MessageBoxIcon.Exclamation, "First time run...")
             If ofDialog.ShowDialog() = DialogResult.OK Then
                 fileNameFull = ofDialog.FileName
                 filePath = Path.GetDirectoryName(fileNameFull)
                 fileName = Path.GetFileName(fileNameFull)
+                My.Settings.setFileNameFull = fileNameFull
+                lblFileLocation.Text = fileNameFull
+                My.Settings.setFileName = fileName
+                My.Settings.setFilePath = filePath
+                My.Settings.setInverted = False
+                My.Settings.Save()
             Else shouldClose += 1
             End If
 
-            My.Settings.setFileNameFull = fileNameFull
-            My.Settings.setFileName = fileName
-            My.Settings.setFilePath = filePath
+
 
         End If
         If shouldClose = 1 Then
             Me.Close()
         Else
+            'Set up variables from settings, start the file watcher, connect to the device and send the initial song info
             My.Settings.setFirstTime = False
             displayScreen = New Velleman.Kits.K8101
             fileNameFull = My.Settings.setFileNameFull
-            fileName = My.Settings.setFileName
-            filePath = My.Settings.setFilePath
+            fileName = Path.GetFileName(My.Settings.setFileNameFull)
+            filePath = Path.GetDirectoryName(My.Settings.setFileNameFull)
+            backgroungIMG = My.Settings.setBGImg
             displayContrast = My.Settings.setContrast
             displayBacklight = My.Settings.setBacklight
             displayInverted = My.Settings.setInverted
+            lblFileLocation.Text = My.Settings.setFileNameFull
+
 
             Start()
 
@@ -61,26 +71,37 @@ Public Class FrmMain
             SongChange.Filter = fileName
             SongChange.EnableRaisingEvents = True
             AddHandler SongChange.Changed, AddressOf SongChange_Changed
-            SendText()
+            If hasConnected = True Then SendText()
             Me.WindowState = FormWindowState.Minimized
         End If
 
     End Sub
 
-
     Private Sub Start()
         Connect()
         displayScreen.Backlight(255)
         displayScreen.Contrast(20)
+        displayScreen.Invert(displayInverted)
     End Sub
 
     Private Sub Connect()
         Try
             displayScreen.Connect()
+            hasConnected = True
         Catch ex As Exception
-            MsgBox("No device detected! Click OK to exit the application.", vbExclamation, "No Device")
+            MsgBox("No device detected! Click OK to exit the application and insert the device.", vbExclamation, "No Device")
             Me.Close()
         End Try
+    End Sub
+
+    Private Sub Disconnect()
+
+        Try
+            displayScreen.Disconnect()
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 
     Private Sub SendText()
@@ -88,12 +109,12 @@ Public Class FrmMain
         Dim lineStartY As Integer = 4  'Sets the base location of the text
         Dim lineStartX As Integer = 26 'Made variable so can change location if background changes
         Dim lines() As String
-        Dim textFile As New StreamReader("D:\Desktop\fooNow.txt") 'Location of the foobar (maybe others) plugin txt file, will need to ensure it is a variable and saved
+        Dim textFile As New StreamReader(fileNameFull) 'Location of the foobar (maybe others) plugin txt file, will need to ensure it is a variable and saved
         Dim lineNumber As Integer = 0 'Reset line number to 0, need to check for the lines after the first to avoid "ë" showing up at the beginning of each line
         Dim charCount As Integer 'Will use to determine where that tag should go vertically
         lines = textFile.ReadToEnd.Split(Environment.NewLine) 'Read the file into lines
         displayScreen.ClearAll() 'Clear the screen
-        displayScreen.DrawImage("./Background.bmp") 'First, set the background. This will need to change into the program location folder (easy enough to change at release)
+        displayScreen.DrawImage(backgroungIMG) 'First, set the background. This will need to change into the program location folder (easy enough to change at release)
         For Each line As String In lines
             charCount = line.Length 'Count the characters of that line/uses in if statement
 
@@ -142,11 +163,11 @@ Public Class FrmMain
     Private Sub FrmMain_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
         If Me.WindowState = FormWindowState.Minimized Then
             sysTrayIcon.Visible = True
-            sysTrayIcon.Icon = SystemIcons.Application
+            sysTrayIcon.Icon = Me.Icon
             sysTrayIcon.BalloonTipIcon = ToolTipIcon.Info
             sysTrayIcon.BalloonTipTitle = "OusbSD is running from the System Tray"
-            sysTrayIcon.BalloonTipText = "Please right-click the icon for configuration"
-            sysTrayIcon.ShowBalloonTip(3000)
+            sysTrayIcon.BalloonTipText = "Please double-click the icon for configuration"
+            sysTrayIcon.ShowBalloonTip(1500)
             'Me.Hide()
             ShowInTaskbar = False
         End If
@@ -163,7 +184,9 @@ Public Class FrmMain
         '   keybd_event(CByte(Keys.MediaPlayPause), 0, KEYEVENTF_KEYDOWN, 0)
         '   keybd_event(CByte(Keys.MediaPlayPause), 0, KEYEVENTF_KEYUP, 0)
         '   MsgBox("Did it pause?")
-        displayScreen.Backlight(0)
+        displayScreen.Backlight(1)
+        displayScreen.Contrast(10)
+        Label2.Text = cbxInverted.CheckState
     End Sub
 
     Public Sub ShowSettings(sender As Object, e As EventArgs) Handles tsmSettings.Click
@@ -177,12 +200,14 @@ Public Class FrmMain
     End Sub
 
     Private Sub FrmMain_Close(sender As Object, e As EventArgs) Handles Me.Closing
+        Me.Hide()
         GoodbyeMessage()
+        Disconnect()
     End Sub
     'Screen can hold [in text] 21 chars(l), 32 chars(s), 6 lines(l), 8 lines(s)
 
     Private Sub GoodbyeMessage()
-        If displayContrast > 0 Then
+        If hasConnected = True Then
             displayScreen.ClearAll()
             displayScreen.DrawText("+-------------------+", K8101.TextSize.Large, 0, 0, 128)
             displayScreen.DrawText("| BBB  Y   Y  EEE   |", K8101.TextSize.Large, 0, 8, 128)
@@ -200,5 +225,24 @@ Public Class FrmMain
 
     Private Sub TsmClose_Click(sender As Object, e As EventArgs) Handles tsmClose.Click
         Me.Close()
+    End Sub
+
+    Private Sub BtnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        My.Settings.setFileNameFull = lblFileLocation.Text
+        My.Settings.setFilePath = Path.GetDirectoryName(lblFileLocation.Text)
+        My.Settings.setFileName = Path.GetFileName(lblFileLocation.Text)
+        My.Settings.setBGImg = lblBGImage.Text
+        My.Settings.setInverted = cbxInverted.CheckState
+        My.Settings.setContrast = trbContrast.Value
+        My.Settings.setBacklight = cbxBacklight.CheckState
+        My.Settings.Save()
+        MsgBox("Application needs to restart to apply settings", 48)
+        Application.Restart()
+    End Sub
+
+    Private Sub BtnFileBrowser_Click(sender As Object, e As EventArgs) Handles btnFileBrowser.Click
+        If ofDialog.ShowDialog() = DialogResult.OK Then
+            lblFileLocation.Text = ofDialog.FileName
+        End If
     End Sub
 End Class

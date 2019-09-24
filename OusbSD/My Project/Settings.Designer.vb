@@ -104,7 +104,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("15")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("10")>  _
         Public Property setContrast() As Integer
             Get
                 Return CType(Me("setContrast"),Integer)

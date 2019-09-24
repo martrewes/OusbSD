@@ -23,6 +23,7 @@ Partial Class FrmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMain))
         Me.ofDialog = New System.Windows.Forms.OpenFileDialog()
         Me.sysTrayIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.sysMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -44,12 +45,13 @@ Partial Class FrmMain
         Me.cbxInverted = New System.Windows.Forms.CheckBox()
         Me.cbxBacklight = New System.Windows.Forms.CheckBox()
         Me.btnSave = New System.Windows.Forms.Button()
-        Me.sysMenu.SuspendLayout
-        Me.GroupBox1.SuspendLayout
-        Me.GroupBox2.SuspendLayout
-        Me.GroupBox3.SuspendLayout
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.sysMenu.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         CType(Me.trbContrast, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout
+        Me.SuspendLayout()
         '
         'ofDialog
         '
@@ -96,6 +98,7 @@ Partial Class FrmMain
         Me.Button1.TabIndex = 1
         Me.Button1.Text = "Playground"
         Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'btnFileBrowser
         '
@@ -261,27 +264,40 @@ Partial Class FrmMain
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(171, 301)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(57, 20)
+        Me.Label2.TabIndex = 10
+        Me.Label2.Text = "Label2"
+        Me.Label2.Visible = False
+        '
         'FrmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(983, 572)
+        Me.ClientSize = New System.Drawing.Size(547, 344)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FrmMain"
-        Me.Text = "frmMain"
+        Me.Text = "Settings"
         Me.sysMenu.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout
+        Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout
+        Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout
+        Me.GroupBox3.PerformLayout()
         CType(Me.trbContrast, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents ofDialog As OpenFileDialog
@@ -305,4 +321,5 @@ Partial Class FrmMain
     Friend WithEvents btnSave As Button
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents tsmClose As ToolStripMenuItem
+    Friend WithEvents Label2 As Label
 End Class
