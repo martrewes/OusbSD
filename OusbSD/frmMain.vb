@@ -167,7 +167,7 @@ Public Class FrmMain
             sysTrayIcon.BalloonTipIcon = ToolTipIcon.Info
             sysTrayIcon.BalloonTipTitle = "OusbSD is running from the System Tray"
             sysTrayIcon.BalloonTipText = "Please double-click the icon for configuration"
-            sysTrayIcon.ShowBalloonTip(1500)
+            sysTrayIcon.ShowBalloonTip(1000)
             'Me.Hide()
             ShowInTaskbar = False
         End If
